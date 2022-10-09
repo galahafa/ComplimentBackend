@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  compliment_db:
+    container_name: compliment_db
+    image: postgres
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - ./ums_db:/var/lib/postgresql/data
+  compliment_web:
+    container_name: compliment_web
+    build: .
+    ports:
+      - "8000:8000"
+    command: python manage.py runserver 0.0.0.0:8000
+#    command: gunicorn -c gunicorn.py ComplimentApp.wsgi
+    restart: always
+    env_file:
+      - ./.env
+    depends_on:
+      - compliment_db
+    volumes:
+      - .:/compliment/
