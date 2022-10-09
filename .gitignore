@@ -3,3 +3,4 @@
 /.env
 .flake8
 .isort.cfg
+/apps/migrations/0*
