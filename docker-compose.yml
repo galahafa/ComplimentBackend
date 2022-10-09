@@ -8,7 +8,7 @@ services:
     env_file:
       - ./.env
     volumes:
-      - ./ums_db:/var/lib/postgresql/data
+      - ./compliment_db:/var/lib/postgresql/data
   compliment_web:
     container_name: compliment_web
     build: .
