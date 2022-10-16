@@ -1,3 +1,5 @@
+import datetime
+
 from django.db.models import Exists, F
 from django_filters import rest_framework as filters
 from rest_framework import mixins, status
@@ -41,3 +43,28 @@ class PhraseViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericVie
             serializer.save()
             return Response(serializer.data)
         return Response({'message': 'check'}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=False)
+    def last_opened(self, request):
+        user = request.user
+        queryset = self.get_queryset()
+        queryset = queryset.filter(openphrase__user=user).order_by('-openphrase__open_date').first()
+        serializer = self.get_serializer(queryset)
+        return Response(serializer.data)
+
+    @action(methods=['GET'], detail=False)
+    def is_opened_today(self, request):
+        user = request.user
+        queryset = self.get_queryset()
+        today = datetime.datetime.today()
+        queryset = queryset.filter(openphrase__user=user,
+                                   openphrase__open_date__year=today.year,
+                                   openphrase__open_date__month=today.month,
+                                   openphrase__open_date__day=today.day,
+                                   openphrase__get_from=None
+                                   )
+        if queryset:
+            response_message = {'is_opened': True}
+        else:
+            response_message = {'is_opened': False}
+        return Response(response_message)

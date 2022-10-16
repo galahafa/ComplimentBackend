@@ -17,7 +17,7 @@ class Phrase(models.Model):
     # language = models.ForeignKey(Language, on_delete=models.CASCADE, to_field='code')
 
     def __str__(self):
-        return self.text
+        return self.text[:50]
 
 
 class OpenPhrase(models.Model):

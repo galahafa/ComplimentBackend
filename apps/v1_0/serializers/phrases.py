@@ -4,6 +4,7 @@ import random
 from rest_framework import serializers
 from rest_framework.exceptions import ParseError, ValidationError
 
+from apps.common_utils.constant import ERROR_TEXT
 from apps.common_utils.functions import get_rarity
 from apps.models.phrases import OpenPhrase, Phrase
 
@@ -37,7 +38,7 @@ class OpenNewPhraseSerializer(serializers.ModelSerializer):
                                           open_date__day=today.day,
                                           user=attrs.get('user'))
         if check:
-            raise ValidationError('hey, you got you compliment today, return tomorrow')
+            raise ValidationError({'phrase': ERROR_TEXT.get('today_opened')})
         return attrs
 
     def create(self, validated_data):
@@ -46,7 +47,10 @@ class OpenNewPhraseSerializer(serializers.ModelSerializer):
         phrases = Phrase.objects.filter(rarity=rarity).exclude(openphrase__user_id=user)
         count = phrases.count()
         if not count:
-            raise ParseError('ooups there is not anymore phrase of this rarity level, try tomorrow')
+            phrases = Phrase.objects.exclude(openphrase__user_id=user)
+            count = phrases.count()
+            if not count:
+                raise ParseError({'phrase': ERROR_TEXT.get('all_opened')})
         random_phrase = phrases[random.randint(0, count - 1)]
         instance = OpenPhrase.objects.create(phrase=random_phrase, user=user)
         return instance

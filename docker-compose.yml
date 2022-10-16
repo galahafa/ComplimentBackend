@@ -9,12 +9,15 @@ services:
       - ./.env
     volumes:
       - ./compliment_db:/var/lib/postgresql/data
+
   compliment_web:
     container_name: compliment_web
     build: .
     ports:
       - "8000:8000"
-    command: python manage.py runserver 0.0.0.0:8000
+    command: sh -c "python manage.py makemigrations &&
+                    python manage.py migrate &&
+                    python manage.py runserver 0.0.0.0:8000"
 #    command: gunicorn -c gunicorn.py ComplimentApp.wsgi
     restart: always
     env_file:

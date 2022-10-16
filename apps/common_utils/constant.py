@@ -6,10 +6,9 @@ RARITY_CHANCE = {
     5: 0.01
 }
 
-RARITY_CHANCE_ACCUMULATE = {
-    1: 60,
-    2: 80,
-    3: 95,
-    4: 99,
-    5: 100
+ERROR_TEXT = {
+    'all_opened': 'it seems like you opened all available phrases',
+    'today_opened': 'hey, you got you compliment today, return tomorrow',
+    'password_compare': "Password fields didn't match."
+
 }
