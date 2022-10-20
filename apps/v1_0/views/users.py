@@ -4,7 +4,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apps.common_utils.viewsets import UserModelViewSet
 from apps.models.users import User
-from apps.v1_0.serializers.users import MyTokenObtainPairSerializer, UserSerializer, UserShortSerializer
+from apps.v1_0.serializers.users import (MyTokenObtainPairSerializer, UserFinishRecoverySerializer, UserSerializer,
+                                         UserShortSerializer, UserStartRecoverySerializer)
 from apps.v1_0.swagger_content.users import (token_auth_decorator, token_refresh_decorator, user_my_decorator,
                                              users_decorator)
 
@@ -34,6 +35,10 @@ class UserViewSet(UserModelViewSet):
     def get_serializer_class(self):
         if self.action == 'my':
             serializer_class = UserShortSerializer
+        elif self.action == 'start_recovery':
+            serializer_class = UserStartRecoverySerializer
+        elif self.action == 'finish_password':
+            serializer_class = UserFinishRecoverySerializer
         else:
             serializer_class = UserSerializer
         return serializer_class
@@ -45,6 +50,14 @@ class UserViewSet(UserModelViewSet):
             return self.retrieve(request, *args, **kwargs)
         if request.method == 'PATCH':
             return self.partial_update(request, *args, **kwargs)
+
+    @action(methods=['POST'], detail=False)
+    def start_recovery(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    @action(methods=['POST'], detail=False)
+    def finish_password(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 
 @token_auth_decorator

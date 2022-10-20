@@ -12,6 +12,7 @@ services:
 
   compliment_web:
     container_name: compliment_web
+    platform: linux/amd64
     build: .
     ports:
       - "8000:8000"

@@ -15,6 +15,7 @@ class User(AbstractUser):
     )
     name = models.CharField(max_length=128, null=True, blank=True, default=None)
     last_name = models.CharField(max_length=128, null=True, blank=True, default=None)
+    birthday = models.DateField(default=None, null=True, blank=True)
     email = models.EmailField(max_length=128, unique=True)
     password = models.CharField(max_length=128)
     is_active = models.BooleanField(default=True)
@@ -24,3 +25,8 @@ class Friend(models.Model):
     my = models.ForeignKey(User, on_delete=models.CASCADE, related_name='my')
     to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='to')
     create_date = models.DateTimeField(auto_now_add=True)
+
+
+class UserRecovery(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    code = models.CharField(max_length=128)
