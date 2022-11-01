@@ -1,5 +1,7 @@
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apps.common_utils.viewsets import UserModelViewSet
@@ -58,6 +60,18 @@ class UserViewSet(UserModelViewSet):
     @action(methods=['POST'], detail=False)
     def finish_password(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        auth = MyTokenObtainPairSerializer(data={'password': request.data.get('password'),
+                                                 'username': serializer.data.get('username')})
+        auth.is_valid(raise_exception=True)
+        return Response({'instance': serializer.data, 'access': auth.validated_data.get('access'),
+                         'refresh': auth.validated_data.get('access')},
+                        status=status.HTTP_201_CREATED, headers=headers)
 
 
 @token_auth_decorator

@@ -23,13 +23,3 @@ urlpatterns = [
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema-admin'), name='swagger-ui'),
     path('api/v1_0/', include('apps.v1_0.urls.all'))
 ]
-
-# create user +
-# login +
-# refresh +
-# patch user +
-# check is created -
-# send data to email -
-# get list of phrases, filter: my, rarity, left_sharing, is_watched, filter by_date
-# create share
-# open phrase by link
