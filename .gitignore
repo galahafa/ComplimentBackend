@@ -5,3 +5,4 @@
 .isort.cfg
 /apps/migrations/0*
 /compliment_db/
+static/
