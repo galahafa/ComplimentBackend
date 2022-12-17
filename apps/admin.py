@@ -1,13 +1,19 @@
 from django import forms
 from django.contrib import admin
+from django.db.models import Count
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 from apps.models import User
-from apps.models.phrases import OpenPhrase, Phrase
+from apps.models.phrases import Collection, OpenPhrase, Phrase
 
-# admin.site.register(User)
-# admin.site.register(Phrase)
-# admin.site.register(OpenPhrase)
+
+class PhraseResource(resources.ModelResource):
+
+    class Meta:
+        model = Phrase
+        fields = ['id', 'text', 'rarity', 'collection', 'status']
 
 
 @admin.register(OpenPhrase)
@@ -37,13 +43,33 @@ class PhraseAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
+@admin.register(Collection)
+class CollectionAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'status', 'phrase_numbers', 'create_date']
+    search_fields = ['name']
+    list_filter = ['status']
+    list_editable = ['status']
+    list_display_links = ['id', 'name']
+
+    def get_queryset(self, request):
+        qs = super(CollectionAdmin, self).get_queryset(request)
+        qs = qs.annotate(phrase_numbers=Count('phrase'))
+        return qs
+
+    def phrase_numbers(self, obj):
+        return obj.phrase_numbers
+
+
 @admin.register(Phrase)
-class PhraseAdmin(admin.ModelAdmin):
-    list_display = ['id', 'get_text', 'rarity']
+class PhraseAdmin(ImportExportModelAdmin):
+    list_display = ['id', 'get_text', 'rarity', 'status', 'collection']
     search_fields = ['text']
     list_filter = ['rarity']
+    list_editable = ['collection', 'status']
     fields = ['text', 'rarity']
     list_display_links = ['id', 'get_text']
+    resource_classes = [PhraseResource]
+    list_per_page = 10
     form = PhraseAdminForm
 
     def get_text(self, obj):
