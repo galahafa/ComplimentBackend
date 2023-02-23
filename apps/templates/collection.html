@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Home page</title>
+</head>
+<body>
+<p>print for sure</p>
+
+<input type=button value="Previous Page" onClick="javascript:history.go(-1);">
+
+available collections:
+    <ul>
+      {% for collection in collections %}
+          <li><a href="/phrase/{{ phrase.id }}/">{{ collection.name }}</a>, {{collection.get_status_display}} </li>
+      {% endfor %}
+      </ul>
+  {% if phrases_list %}
+<p>print for sure</p>
+
+available phrases:
+      <ul>
+      {% for phrase in phrases_list %}
+          <li><a href="/phrase/{{ phrase.id }}/">{{ phrase.text }}</a></li>
+      {% endfor %}
+      </ul>
+  {% else %}
+      <p>No polls are available.</p>
+  {% endif %}
+
+
+</body>
+</html>
