@@ -1,0 +1,30 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/auth/registration.css' %}">
+  <meta charset="utf-8">
+  <title>Home page</title>
+</head>
+<body>
+<div class="logo">
+    <p>COMPLIMENT</p>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <div class="login-form">
+    <input type="text" name="username" id="id_username" required="true" autofocus="true" autocomplete="off" placeholder="Username" class="username">
+  </div>
+  <div class="login-form">
+    <input type="email" name="email" id="id_email" required="true" autocomplete="off" placeholder="Email" class="email">
+  </div>
+  <div class="login-form">
+    <input type="password" name="password" id="id_password" required="true" autocomplete="off" placeholder="Password" class="password">
+  </div>
+  <button type="submit" class="signup">Submit</button>
+</form>
+
+</body>
+</html>

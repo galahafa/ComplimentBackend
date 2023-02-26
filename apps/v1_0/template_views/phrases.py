@@ -6,11 +6,13 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 
 from apps.models.phrases import Collection, Phrase, OpenPhrase
+# from apps.v1_0.forms.users import LoginForm
 
 
-class IndexView(UserPassesTestMixin, generic.ListView, generic.CreateView):
+class IndexView(UserPassesTestMixin, generic.ListView   ):
     template_name = 'index.html'
     context_object_name = 'phrases_list'
+    login_url = 'start'
 
     def test_func(self):
         return self.request.user.is_authenticated
@@ -52,8 +54,8 @@ class IndexView(UserPassesTestMixin, generic.ListView, generic.CreateView):
         return qs
 
     def get(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('login')
+        # if not request.user.is_authenticated:
+        #     return HttpResponseRedirect('start')
         return super(IndexView, self).get(request, *args, **kwargs)
 
 
