@@ -1,0 +1,24 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/auth/forgot_success.css' %}">
+  <meta charset="utf-8">
+  <title>Home page</title>
+</head>
+<body>
+<div class="center_form">
+<div class="logo">
+    <p>Password reset</p>
+</div>
+<div class="under_text">
+    <p>Your password has been reset succesfully!</p>
+</div>
+    <img src="{% static 'apps/files/img.png' %}" alt="success" class="image">
+<form action="{{ redirect_url }}" method="get">
+  <button class="signup">Continue</button>
+</form>
+</div>
+</body>
+</html>

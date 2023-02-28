@@ -8,10 +8,13 @@
   <title>Home page</title>
 </head>
 <body>
+<div class="center_form">
 <div class="logo">
-    <p>COMPLIMENT</p>
+    <p>Create account</p>
 </div>
-
+<div class="under_text">
+    <p>to continue</p>
+</div>
 <form method="post">
   {% csrf_token %}
   <div class="login-form">
@@ -25,6 +28,7 @@
   </div>
   <button type="submit" class="signup">Submit</button>
 </form>
-
+<a href="{% url 'login' %}" class="redirect_link">log in</a>
+</div>
 </body>
 </html>

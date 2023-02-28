@@ -8,9 +8,13 @@
   <title>Home page</title>
 </head>
 <body>
-<div class="logo">
-    <p>COMPLIMENT</p>
-</div>
+<div class="center_form">
+    <div class="logo">
+        <p>Login account</p>
+    </div>
+    <div class="under_text">
+            <p>to continue</p>
+    </div>
 <form method="post">
   {% csrf_token %}
   <div class="login-form">
@@ -19,10 +23,12 @@
   <div class="login-form">
     <input type="password" name="password" id="id_password" required="true" autocomplete="off" placeholder="Password" class="password">
   </div>
-<a href="{% url 'registration' %}" class="forgot-password">Forgot it?</a>
+<a href="{% url 'forgot1' %}" class="forgot-password">Forgot it?</a>
   <button type="submit" class="login">Log in</button>
 </form>
-
+{#        <div class="redirect_link">#}
+    <a href="{% url 'registration' %}" class="redirect_link">sign up</a>
+{#        </div>#}
 {#<form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}#}
 {#    <div class="form-field">#}
 {#        {{ form.username.errors }}#}
@@ -31,7 +37,7 @@
 {#    </div>#}
 {#    <input type="submit" class="login" value="Log up">#}
 {#</form>#}
-
+</div>
 </body>
 
 </html>

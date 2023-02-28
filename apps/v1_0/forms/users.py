@@ -1,11 +1,19 @@
+from smtplib import SMTPException
+
+from django.conf import settings
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import UserCreationForm, UsernameField
+from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm
+from django.core.mail import send_mail
+from django.forms import ModelForm, Form
 from django import forms
 from django.utils.text import capfirst
 
+from apps.common_utils.constant import ERROR_TEXT
+from apps.common_utils.functions import get_random_integer
 from apps.models import User
+from apps.models.users import UserRecovery
 
 UserModel = get_user_model()
 
@@ -124,3 +132,35 @@ class RegistrationForm(ModelForm):
         if commit:
             user.save()
         return user
+
+
+class ForgotEmailForm(ModelForm):
+    email = forms.CharField(widget=forms.TextInput(attrs={'class': 'email',
+                                                          'placeholder': 'email'}))
+
+    class Meta:
+        model = UserRecovery
+        fields = ['email']
+
+    def clean(self):
+        super(ForgotEmailForm, self).clean()
+        email = self.data.get('email')
+        if email:
+            try:
+                User.objects.get(email=email)
+            except User.DoesNotExist:
+                raise ValidationError({'email': ERROR_TEXT.get('email_exist')})
+
+        return self.cleaned_data
+
+
+class RecoveryForm(Form):
+    email = forms.CharField(widget=forms.TextInput(attrs={'class': 'email',
+                                                             'placeholder': 'email'}))
+    code = forms.CharField(widget=forms.TextInput(attrs={'class': 'email',
+                                                          'placeholder': 'code'}))
+    password = forms.CharField(widget=forms.TextInput(attrs={'class': 'password',
+                                                             'placeholder': 'password'}))
+
+    class Meta:
+        fields = ['email', 'code', 'password']
