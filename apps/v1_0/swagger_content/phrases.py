@@ -2,21 +2,21 @@ from drf_spectacular.utils import extend_schema, extend_schema_view, inline_seri
 from rest_framework import serializers
 
 phrases_decorator = extend_schema_view(
-    list=extend_schema(tags=['phrases'], description='список фраз', summary='список фраз'),
-    retrieve=extend_schema(tags=['phrases'], description='айди фразы', summary='список фраз'),
+    list=extend_schema(tags=['phrases'], description='open phrases list', summary='phrases list'),
+    retrieve=extend_schema(tags=['phrases'], description='single phrase', summary='single phrase'),
     open_today_phrase=extend_schema(tags=['phrases'],
                                     request=None,
-                                    description='открыть новую фразу, работает один раз в день для каждого юзера',
-                                    summary='открыть фразу'),
+                                    description='open new phrase, work only one time in day for each user',
+                                    summary='open new phrase'),
     is_opened_today=extend_schema(tags=['phrases'],
                                   request=None,
                                   responses=inline_serializer('IsOpenedSerializer',
                                                               fields={'is_opened': serializers.BooleanField()}),
-                                  description='проверка открыта ли сегодня фраза через кнопку',
-                                  summary='проверка открыта ли фраза'
+                                  description='check if user open phrase today',
+                                  summary='check if user open phrase today'
                                   ),
     last_opened=extend_schema(tags=['phrases'],
                               request=None,
-                              description='последняя открытая фраза',
-                              summary='последняя открытая фраза')
+                              description='last opened phrase',
+                              summary='last opened phrase')
 )

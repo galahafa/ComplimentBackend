@@ -2,14 +2,15 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apps.common_utils.viewsets import UserModelViewSet
 from apps.models.users import User
 from apps.v1_0.serializers.users import (MyTokenObtainPairSerializer, UserFinishRecoverySerializer, UserSerializer,
                                          UserShortSerializer, UserStartRecoverySerializer)
-from apps.v1_0.swagger_content.users import (token_auth_decorator, token_refresh_decorator, user_my_decorator,
-                                             users_decorator)
+from apps.v1_0.swagger_content.users import (error_docs_decorator, token_auth_decorator, token_refresh_decorator,
+                                             user_my_decorator, users_decorator)
 
 
 @users_decorator
@@ -82,3 +83,24 @@ class MyObtainTokenPairView(TokenObtainPairView):
 @token_refresh_decorator
 class MyTokenRefreshView(TokenRefreshView):
     pass
+
+
+@error_docs_decorator
+class InformationErrorApiView(APIView):
+
+    def get(self, request, *args, **kwargs):
+        error_dict = {
+            0: 'unrecognized error',
+            1: 'base error without type',
+            2: 'validation error, most common exception called when incorrect data',
+            3: 'error parsing input data',
+            4: 'authentication error, called when auth not provided (401 error)',
+            5: 'authentication validation error (401 error)',
+            6: 'permission error, not enough access (403 error)',
+            7: 'object not found (404 error)',
+            8: 'REST method not allowed (405 error)',
+            9: 'passed not acceptable headers (406 error)',
+            10: 'unsupported media type (415 error)',
+            11: 'too many request (429 error)'
+        }
+        return Response(error_dict)
