@@ -4,4 +4,3 @@
 .flake8
 .isort.cfg
 /compliment_db/
-static/
