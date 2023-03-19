@@ -4,5 +4,9 @@
 .flake8
 .isort.cfg
 /compliment_db/
-/static/
-!/static/apps/*
+# Ignore all static files
+static/*
+
+# Except the ones in the apps folder
+!static/apps/
+!static/apps/**
