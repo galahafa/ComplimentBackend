@@ -5,4 +5,4 @@
 .isort.cfg
 /compliment_db/
 /static/
-!/static/apps
+!/static/apps/
