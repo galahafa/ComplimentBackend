@@ -38,7 +38,7 @@ class Phrase(models.Model):
 
 
 class OpenPhrase(models.Model):
-    id = models.UUIDField(default=uuid.uuid4(), primary_key=True)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     phrase = models.ForeignKey(Phrase, on_delete=models.CASCADE)
     open_date = models.DateTimeField(auto_now_add=True)
