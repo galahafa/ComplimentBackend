@@ -5,3 +5,22 @@ forgot_email
 forgot_another
 forgot_success
 main
+
+{#                {% if form.username.errors %}#}
+{#                    <div class="error-message">#}
+{#                        <span class=" username error-message"#}
+{#                              style="list-style-type: none">{{ form.username.errors }}</span>#}
+{#                    </div>#}
+{#                {% endif %}#}
+
+{#                {% if form.email.errors %}#}
+{#                    <div class="error-message">#}
+{#                        <span class="email error-message" style="list-style-type: none">{{ form.email.errors }}</span>#}
+{#                    </div>#}
+{#                {% endif %}#}
+
+{#            {% if form.password.errors %}#}
+{#                <div class="error-message">#}
+{#                    <span class="password error-message" style="list-style-type: none">{{ form.password.errors }}</span>#}
+{#                </div>#}
+{#            {% endif %}#}

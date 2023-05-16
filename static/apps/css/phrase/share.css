@@ -1,0 +1,92 @@
+@import "../base.css";
+
+/*.command_list {*/
+/*    font-family: 'Zanna Personal Use Only';*/
+/*    font-style: normal;*/
+/*    font-weight: 20;*/
+/*    font-size: 25px;*/
+/*    line-height: 30px;*/
+/*}*/
+
+.under_text{
+
+    width: 350px;
+    height: 40px;
+    left: 545px;
+    top: 248px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.07em;
+    color: #FFF3F3;
+
+
+}
+
+.username{
+    margin: auto;
+
+    width: 350px;
+    height: 29px;
+    left: 545px;
+    top: 348px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #FFFFFF;
+    border: none;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+.buttons {
+    position: relative;
+    width: 200px;
+    margin: 0 auto;
+    vertical-align: middle;
+}
+
+.action_btn {
+    width: 200px;
+    margin: 0 auto;
+    display: inline;
+    position: relative;
+    top: 380px;
+    left: 450px;
+}
+
+.button-container {
+    text-align: center; /* centers the button horizontally */
+    margin-top: 250px; /* adds margin space above the button */
+    position: relative;
+    top: 680px;
+    left: 100px;
+
+}
+
+.login {
+    /**/
+    /*width: 350px;*/
+    /*height: 65px;*/
+    /*left: 545px;*/
+    /*top: 480px;*/
+    position: relative;
+    width: 150px;
+    height: 35px;
+    left: 170px;
+    top: 20%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.05em;
+    border: 1px solid #282121;
+    border-radius: 20px;
+
+}

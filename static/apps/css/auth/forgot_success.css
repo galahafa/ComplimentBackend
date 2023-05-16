@@ -1,0 +1,45 @@
+@import "../base.css";
+
+.signup {
+    width: 350px;
+
+}
+
+.form-field {
+    text-align: center;
+}
+
+.form-field:after {
+    left: 4.08%;
+    right: 4.08%;
+    top: 79.59%;
+    bottom: 20.41%;
+    border-top: 1px solid #FFFFFF;
+}
+
+@media only screen and  (max-width: 768px) {
+
+
+    .form-field {
+        position: relative;
+    }
+
+    .form-field:after {
+        content: "";
+
+        left: 4.08%;
+        right: 4.08%;
+        top: 10.59%;
+        bottom: 0.41%;
+        border-top: 1px solid #FFFFFF;
+    }
+}
+
+.image {
+
+    top: 300px;
+    left: 640px;
+    width: 160px;
+    height: 160px;
+    /*background: rgba(249, 240, 240, 0.5);*/
+}

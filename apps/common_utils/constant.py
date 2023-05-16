@@ -10,6 +10,7 @@ ERROR_TEXT = {
     'all_opened': 'it seems like you opened all available phrases',
     'today_opened': 'hey, you got you compliment today, return tomorrow',
     'password_compare': "Password fields didn't match.",
-    'email_exist': "Email not found in our system"
+    'email_exist': "Email not found in our system",
+    'left_share': 'Sorry there is no more left share'
 
 }

@@ -2,8 +2,9 @@
 from smtplib import SMTPException
 
 from django.conf import settings
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView as LoginOldView
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
@@ -11,8 +12,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render, resolve_url
 
 from django.urls import reverse, reverse_lazy
-from django.views import View, generic
-from django.views.generic import TemplateView, RedirectView
+from django.views import generic, View
+from django.views.generic import TemplateView
 
 from apps.common_utils.functions import get_random_integer
 from apps.models import User
@@ -22,18 +23,28 @@ from apps.v1_0.forms.users import RegistrationForm, AuthenticationForm, ForgotEm
 
 class LoginView(LoginOldView):
     form_class = AuthenticationForm
-    template_name = 'login.html'
+    template_name = 'auth_process/login.html'
 
     def get_success_url(self):
         return reverse('main')
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('main')
+        return super(LoginView, self).get(request, *args, **kwargs)
+
 
 class StartPageView(TemplateView):
-    template_name = 'start_page.html'
+    template_name = 'auth_process/start_page.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('main')
+        return super(StartPageView, self).get(request, *args, **kwargs)
 
 
 class RegistrationView(generic.CreateView):
-    template_name = 'registration.html'
+    template_name = 'auth_process/registration.html'
     model = User
     form_class = RegistrationForm
 
@@ -45,6 +56,7 @@ class RegistrationView(generic.CreateView):
         Handle POST requests: instantiate a form instance with the passed
         POST variables and then check if it's valid.
         """
+        self.object = None
         form = self.get_form()
         if form.is_valid():
             user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
@@ -56,9 +68,14 @@ class RegistrationView(generic.CreateView):
         else:
             return self.form_invalid(form)
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('main')
+        return super(RegistrationView, self).get(request, *args, **kwargs)
+
 
 class ForgotEmailView(generic.CreateView):
-    template_name = 'forgot_email.html'
+    template_name = 'auth_process/forgot_email.html'
     model = User
     form_class = ForgotEmailForm
 
@@ -92,7 +109,7 @@ class ForgotEmailView(generic.CreateView):
 
 
 class ForgotCodeView(TemplateView):
-    template_name = 'forgot_code.html'
+    template_name = 'auth_process/forgot_code.html'
     form_class = RecoveryForm
 
     def get(self, request, *args, **kwargs):
@@ -130,9 +147,30 @@ class ForgotCodeView(TemplateView):
 
 
 class ForgotSuccessView(TemplateView):
-    template_name = 'forgot_success.html'
+    template_name = 'auth_process/forgot_success.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['redirect_url'] = reverse_lazy('main')
         return context
+
+
+class ProfileView(UserPassesTestMixin, TemplateView):
+    template_name = 'profile.html'
+
+    def test_func(self):
+        return self.request.user.is_authenticated
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        context.update({
+            'user': self.request.user
+        })
+        return context
+
+
+class LogoutView(View):
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('start')

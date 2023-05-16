@@ -1,0 +1,150 @@
+@import url(fonts.css);
+
+body {
+    margin: 0;
+    padding: 0;
+    /*background: #171717;*/
+    background: rgb(191,172,226);
+    background: linear-gradient(90deg, rgba(191,172,226,1) 0%, rgba(235,199,230,1) 100%);
+    box-sizing: border-box;
+    color: #171717;
+}
+
+.header {
+    width: 100%;
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    font-size: 54px;
+    font-weight: bold;
+    color: #171717;
+}
+
+
+.errorlist {
+    list-style: none;
+}
+
+
+.return_icon {
+
+    width: 50px;
+    height: 50px;
+    left: 3%;
+    top: 3%;
+    fill: #FFFFFF;
+}
+
+.return_icon path {
+    fill: green !important;
+}
+
+
+.center_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+.header p {
+    font-size: 2vw;
+    text-align: center;
+    margin: 20px 0;
+    padding: 0;
+}
+
+.header h1 {
+    white-space: nowrap;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 800px) {
+    .center_form {
+        padding: 0 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        font-size: 36px;
+        padding: 30px 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .header {
+        font-size: 24px;
+        padding: 20px;
+    }
+
+    .header p {
+        font-size: 24px;
+    }
+}
+
+
+.button-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 40px);
+    min-width: 180px;
+    max-width: 350px;
+    height: 65px;
+    border: 1px solid #282121;
+    font-size: 2.5vw;
+    margin: 20px 0;
+    cursor: pointer;
+    border-radius: 20px;
+
+}
+
+.base-input {
+    width: 350px;
+    height: 29px;
+    padding: 0px;
+    background-color: rgba(0, 0, 0, 0);
+    /*color: #FFFFFF;*/
+    color: #171717;
+    border: none;
+    border-bottom: 1px solid #FFFFFF;
+    margin-bottom: 20px;
+}
+
+.base-input:focus {
+    border: 2px solid blue;
+}
+
+.base-input:hover {
+    border-bottom: 1px solid #645CBB;
+
+}
+
+.base-input::placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.05em;
+    color: #171717;
+    /*color: #FFFFFF;*/
+}
+
+.base-input:hover::placeholder {
+    color: #645CBB;
+
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-text-fill-color: inherit;
+}

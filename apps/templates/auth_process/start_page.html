@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block extra_css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/auth/start page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="center_form">
+        <div class="header">
+            <h1>COMPLIMENT</h1>
+        </div>
+
+        <button id="log_in" class="action_btn login button-form">Log in</button>
+        <button id="sign_up" class="action_btn signup button-form">Sign up</button>
+
+        <script>
+            document.getElementById("log_in").onclick = function () {
+                location.href = "{% url 'login' %}"
+            };
+        </script>
+        <script>
+            document.getElementById("sign_up").onclick = function () {
+                location.href = "{% url 'registration' %}"
+            };
+        </script>
+    </div>
+{% endblock %}

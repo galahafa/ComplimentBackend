@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block extra_css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/phrase/main.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="page">
+    {% if today_phrase.is_opened %}
+        <div class="collection_card animation_{{ today_phrase.phrase.rarity }}">
+            <p>{{ today_phrase.phrase.text }}</p>
+
+            <p class="card_rarity">rarity: {{ today_phrase.phrase.get_rarity_display  }}</p>
+            <p class="card_id">card number: {{ today_phrase.phrase.id }}</p>
+        </div>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="compliment_page">COMPLIMENT ME!!!</button>
+            <div class="server_message">
+                {% if errors %}
+                    <ul class="errorlist" style="list-style-type: none">
+                        {% for key, value in errors.items %}
+                            <li>{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </form>
+
+    {% endif %}
+    <button id="Collection" class="collection small_buttons">My collection</button>
+
+    <button id="Share_button" class="share small_buttons">Share with Friends</button>
+
+    <button id="Guide" class="guide small_buttons">Guide</button>
+
+    <button id="Profile" class="profile small_buttons">Profile</button>
+
+    <script>
+        document.getElementById("Collection").onclick = function () {
+            location.href = "{% url 'collection' %}"
+        };
+    </script>
+    <script>
+        document.getElementById("Share_button").onclick = function () {
+            {#var id = {{today_phrase.phrase.id}}#}
+            location.href = "/share/" + {{ today_phrase.phrase.id }} +"/"
+        };
+    </script>
+    <script>
+        document.getElementById("Guide").onclick = function () {
+            location.href = "{% url 'guide' %}"
+        };
+    </script>
+    <script>
+        document.getElementById("Profile").onclick = function () {
+            location.href = "{% url 'profile' %}"
+        };
+    </script>
+    </div>
+{% endblock %}

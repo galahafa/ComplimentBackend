@@ -1,17 +1,11 @@
-from smtplib import SMTPException
-
-from django.conf import settings
 from django.contrib.auth import get_user_model, authenticate
-from django.contrib.auth.forms import UserCreationForm, UsernameField
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.forms import UsernameField
 from django.core.exceptions import ValidationError
-from django.core.mail import send_mail
 from django.forms import ModelForm, Form
 from django import forms
 from django.utils.text import capfirst
 
 from apps.common_utils.constant import ERROR_TEXT
-from apps.common_utils.functions import get_random_integer
 from apps.models import User
 from apps.models.users import UserRecovery
 
@@ -49,8 +43,7 @@ class AuthenticationForm(forms.Form):
     error_messages = {
         "invalid_login":
             "Please enter a correct %(username)s and password. Note that both "
-            "fields may be case-sensitive."
-        ,
+            "fields may be case-sensitive.",
         "inactive": "This account is inactive.",
     }
 
@@ -156,9 +149,9 @@ class ForgotEmailForm(ModelForm):
 
 class RecoveryForm(Form):
     email = forms.CharField(widget=forms.TextInput(attrs={'class': 'email',
-                                                             'placeholder': 'email'}))
+                                                          'placeholder': 'email'}))
     code = forms.CharField(widget=forms.TextInput(attrs={'class': 'email',
-                                                          'placeholder': 'code'}))
+                                                         'placeholder': 'code'}))
     password = forms.CharField(widget=forms.TextInput(attrs={'class': 'password',
                                                              'placeholder': 'password'}))
 

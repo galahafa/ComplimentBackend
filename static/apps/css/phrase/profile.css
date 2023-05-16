@@ -1,0 +1,94 @@
+@import "../base.css";
+
+.profile_form {
+
+    width: 920px;
+    height: 100px;
+    left: 260px;
+    top: 50px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 29px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+
+.buttons {
+    position: relative;
+    width: 200px;
+    margin: 0 auto;
+    vertical-align: middle;
+}
+
+.action_btn {
+    width: 200px;
+    margin: 0 auto;
+    display: inline;
+    position: relative;
+    top: 300px;
+    left: 545px;
+}
+
+.button-container {
+    text-align: center; /* centers the button horizontally */
+    margin-top: 250px; /* adds margin space above the button */
+    position: relative;
+    top: 700px;
+    left: 100px;
+
+}
+
+.login {
+    /**/
+    /*width: 350px;*/
+    /*height: 65px;*/
+    /*left: 545px;*/
+    /*top: 480px;*/
+    position: relative;
+    width: 350px;
+    height: 65px;
+    left: 0px;
+    top: 30%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.05em;
+    border: 1px solid #282121;
+    border-radius: 20px;
+
+}
+
+.signup {
+    margin: auto;
+    /**/
+    /*width: 350px;*/
+    /*height: 65px;*/
+    /*left: 545px;*/
+    /*top: 570px;*/
+    position: relative;
+    width: 350px;
+    height: 65px;
+    left: 0%;
+    top: 30%;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    background: #000000;
+    border: 1px solid #282121;
+    border-radius: 20px;
+
+}

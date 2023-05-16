@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block extra_css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/phrase/share_page.css' %}">
+    <title>Home page</title>
+{% endblock %}
+
+{% block content %}
+    {{ open_phrase.id }}
+    {% if check_phrase.status == 'error' %}
+        <script>console.log('test')</script>
+        <div class="collection_card">
+            <div class="text">{{ open_phrase.phrase.text }}</div>
+            {% if not request.GET.success %}
+                <div class="text">{{ check_phrase.message }}</div>
+            {% endif %}
+        </div>
+    {% else %}
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="compliment_page">GET COMPLIMENT FROM {{ open_phrase.user.username }}</button>
+        </form>
+    {% endif %}
+    <button id="Collection" class="collection">My collection</button>
+
+    <button id="Share_button" class="share">Share with Friends</button>
+
+    <button id="Guide" class="guide">Guide</button>
+
+    <button id="Profile" class="profile">Profile</button>
+
+    <script>
+        document.getElementById("Collection").onclick = function () {
+            location.href = "{% url 'collection' %}"
+        };
+    </script>
+    <script>
+        document.getElementById("Share_button").onclick = function () {
+            location.href = "/share/" + "{{ open_phrase.phrase_id }}" + "/"
+        };
+    </script>
+    <script>
+        document.getElementById("Guide").onclick = function () {
+            location.href = "{% url 'guide' %}"
+        };
+    </script>
+    <script>
+        document.getElementById("Profile").onclick = function () {
+            location.href = "{% url 'profile' %}"
+        };
+    </script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block extra_css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/auth/forgot_code.css' %}">
+    <meta charset="utf-8">
+    <title>Home page</title>
+{% endblock %}
+{% block content %}
+    <img src="{% static 'apps/files/less_icon.svg' %}" alt="return_svg" onclick="javascript:history.go(-1);"
+         class="return_icon"/>
+    <div class="center_form">
+        <div class="header">
+            <h1>Reset password</h1>
+            <p>Enter the code sent to your email and creat new password</p>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="login-form">
+                <input type="text" name="code" id="id_code" required="true" autocomplete="off" placeholder="Code"
+                       class="code base-input">
+            </div>
+            <div class="login-form">
+                <input type="password" name="password" id="id_password" required="true" autocomplete="off"
+                       placeholder="New password" class="password base-input">
+            </div>
+            <form action="{{ redirect_url }}" method="get">
+                <button type="submit" class="signup button-form">Save!</button>
+            </form>
+        </form>
+    </div>
+{% endblock %}

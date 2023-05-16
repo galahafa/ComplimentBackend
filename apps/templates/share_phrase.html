@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block extra_css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/phrase/share.css' %}">
+    <title>Title</title>
+{% endblock %}
+
+{% block content %}
+    <img src="{% static 'apps/files/less_icon.svg' %}" alt="return_svg" onclick="javascript:history.go(-1);"
+         class="return_icon"/>
+    <div class="center_form">
+        <div class="logo">
+            <p>Share this link!</p>
+        </div>
+        <div class="under_text">
+            <p>you can copy this link and text, or choose on of button below </p>
+
+        </div>
+        <input type="text" id="id_phrase" value={{ share_url }} readonly class="username" readonly>
+        <div class="buttons">
+            <div class="action_btn">
+                <button id="id_copy" class="action_btn login" onclick="copyText()">Copy</button>
+                <script>
+                    function copyText() {
+                        var text = document.getElementById("id_phrase").value;
+                        console.log(123456)
+                        navigator.clipboard.writeText(text).then(function () {
+                            var button = document.getElementById("id_copy");
+                            button.textContent = "Copied!";
+                            setTimeout(function () {
+                                button.textContent = "Copy";
+                            }, 2000);
+                        }, function () {
+                            console.error("Failed to copy text");
+                        });
+                    }
+                </script>
+                {#      <button onclick="copyToClipboard()">Copy</button>#}
+
+            </div>
+
+        </div>
+
+
+        {% load social_share %}
+
+        {#        {% post_to_facebook 123 "Post to Facebook!" %}#}
+        {#        {% post_to_twitter "New Song: awesome song. Check it out!" object_or_url "Post to Twitter" %}#}
+        {#        {% post_to_twitter "New Song: {{object.title}}. Check it out!" 123 "Post to Twitter" %}#}
+        {#        {% post_to_linkedin 123 %}#}
+        {#        {% send_email 123 "New Song: 123. Check it out!" 123 "Share via email" %}#}
+        {#        {% post_to_reddit "New Song: 123" 123 %}#}
+        {% post_to_telegram "New Song: 123" '123' %}
+        {#        {% post_to_whatsapp 123 "Share via WhatsApp" %}#}
+    </div>
+{% endblock %}

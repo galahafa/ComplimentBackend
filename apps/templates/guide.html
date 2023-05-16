@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% block extra_css %}
     {% load static %}
-    {#    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/phrase/collection.css' %}">#}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/phrase/guide.css' %}">
+    <title>Title</title>
 {% endblock %}
 
 {% block content %}
     <img src="{% static 'apps/files/less_icon.svg' %}" alt="return_svg" onclick="javascript:history.go(-1);"
          class="return_icon"/>
-    <h1>{{ phrase.text }} {{ phrase.rarity }}</h1>
-
-    <p>Phone: {{ mymember.status }}</p>
+    Soon there will be great description how this work
 {% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block extra_css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/auth/login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="center_form">
+        <div class="header">
+            <h1>Login account</h1>
+            <p>to continue</p>
+        </div>
+
+        <form method="post" autocomplete="off">
+            {% csrf_token %}
+            <div class="login-form">
+                <input type="text" name="username" id="id_name" required="true" autofocus="true" autocomplete="off"
+                       placeholder="Username" class="username base-input" onfocus="this.removeAttribute('readonly');">
+            </div>
+            <div class="login-form">
+                <input type="password" name="password" id="id_password" required="true" autocomplete="off"
+                       placeholder="Password" class="password base-input" onfocus="this.removeAttribute('readonly');">
+            </div>
+            <a href="{% url 'forgot1' %}" class="forgot-password">Forgot it?</a>
+            <button type="submit" class="login button-form">Log in</button>
+        </form>
+        <a href="{% url 'registration' %}" class="redirect_link">sign up</a>
+    </div>
+{% endblock %}

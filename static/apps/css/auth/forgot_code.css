@@ -1,0 +1,55 @@
+@import "../base.css";
+
+
+.code {
+    left: 545px;
+    top: 348px;
+}
+
+
+.password{
+    left: 545px;
+    top: 476px;
+}
+
+
+.signup {
+    width: 100%;
+}
+
+.form-field {
+    text-align: center;
+}
+
+.form-field:after {
+    left: 4.08%;
+    right: 4.08%;
+    top: 79.59%;
+    bottom: 20.41%;
+    border-top: 1px solid #FFFFFF;
+}
+
+.redirect_link {
+
+    font-style: italic;
+    color: #FFFFFF;
+}
+
+
+@media only screen and  (max-width: 768px) {
+
+
+    .form-field {
+        position: relative;
+    }
+
+    .form-field:after {
+        content: "";
+
+        left: 4.08%;
+        right: 4.08%;
+        top: 10.59%;
+        bottom: 0.41%;
+        border-top: 1px solid #FFFFFF;
+    }
+}

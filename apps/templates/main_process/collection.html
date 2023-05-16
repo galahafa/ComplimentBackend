@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block extra_css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/phrase/collection.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <img src="{% static 'apps/files/less_icon.svg' %}" alt="return_svg" onclick="javascript:history.go(-1);"
+         class="return_icon"/>
+    {#available collections:#}
+    {#    <ul>#}
+    {#      {% for collection in collections %}#}
+    {#          <li><a href="/phrase/{{ phrase.id }}/">{{ collection.name }}</a>, {{collection.get_status_display}} </li>#}
+    {#      {% endfor %}#}
+    {#      </ul>#}
+    <div class="collection_card">
+        <div class="text"> Collection</div>
+        <div class="under_text"> try to get them all!</div>
+    </div>
+
+    <div class="card-container">
+        {% for card in phrases_list %}
+            <div class="card {% if forloop.first %}active{% endif %}">
+                <div class="card-wrapper">
+                    <div class="card-front">
+                        <h2>7777</h2>
+                    </div>
+                    <div class="card-back">
+                        <h2>{{ card.title }}</h2>
+                        <p>{{ card.text }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="card-information">
+        <h6>opened phrases:</h6>
+        <p>{{ phrases_list.count }} / {{ phrase_number }}</p>
+    </div>
+    <script>
+        const slider = document.querySelector('.card-container');
+        let mouseDown = false;
+        let startX, scrollLeft;
+
+        let startDragging = function (e) {
+            mouseDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        };
+        let stopDragging = function (event) {
+            mouseDown = false;
+        };
+
+        slider.addEventListener('mousemove', (e) => {
+            e.preventDefault();
+            if (!mouseDown) {
+                return;
+            }
+            const x = e.pageX - slider.offsetLeft;
+            const scroll = x - startX;
+            slider.scrollLeft = scrollLeft - scroll;
+        });
+
+        // Add the event listeners
+        slider.addEventListener('mousedown', startDragging, false);
+        slider.addEventListener('mouseup', stopDragging, false);
+        slider.addEventListener('mouseleave', stopDragging, false);
+    </script>
+{% endblock %}

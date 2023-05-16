@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/phrase/play.css' %}">
+</head>
+<body>
+<div class="collection">
+  <h1>Your Collection</h1>
+<div class="card-container">
+  {% for card in cards %}
+  <div class="card {% if forloop.first %}active{% endif %}">
+    <div class="card-wrapper">
+      <div class="card-front">
+        <h2>7777</h2>
+      </div>
+      <div class="card-back">
+        <h2>{{ card.title }}</h2>
+        <p>{{ card.text }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+<script>
+    const cards = document.querySelectorAll(".card");
+let currentCardIndex = Math.floor(cards.length / 2);
+
+// Set the initial active card
+cards[currentCardIndex].classList.add("active");
+
+cards.forEach((card, index) => {
+  card.addEventListener("click", () => {
+    // Check if the clicked card is already active
+    if (card.classList.contains("active")) {
+      // Toggle the flip class to show/hide the card content
+      card.classList.toggle("flip");
+      return;
+    }
+
+    // Remove the active class from the current active card
+    cards[currentCardIndex].classList.remove("active");
+
+    // Add the active class to the clicked card
+    card.classList.add("active");
+
+    // Set the index of the new active card
+    currentCardIndex = index;
+
+    // Scroll the container to show the new active card
+    const cardContainer = document.querySelector(".card-container");
+    const cardWidth = card.offsetWidth + parseInt(getComputedStyle(card).marginLeft) + parseInt(getComputedStyle(card).marginRight);
+    const scrollLeft = cardContainer.scrollLeft;
+    const containerWidth = cardContainer.offsetWidth;
+    const minScroll = currentCardIndex * cardWidth - (containerWidth - cardWidth) / 2;
+    const maxScroll = (currentCardIndex + 1) * cardWidth - (containerWidth - cardWidth) / 2;
+    const newScroll = Math.max(minScroll, Math.min(maxScroll, scrollLeft + maxScroll - minScroll));
+    cardContainer.scrollTo({
+      left: newScroll,
+      behavior: "smooth"
+    });
+  });
+});
+
+</script>
+</body>
+</html>

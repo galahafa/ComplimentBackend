@@ -1,9 +1,11 @@
 import datetime
 
 from django.db.models import Exists, F
+from django.utils import timezone
 from django_filters import rest_framework as filters
 from rest_framework import mixins, status
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
@@ -56,7 +58,7 @@ class PhraseViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericVie
     def is_opened_today(self, request):
         user = request.user
         queryset = self.get_queryset()
-        today = datetime.datetime.today()
+        today = timezone.now()
         queryset = queryset.filter(openphrase__user=user,
                                    openphrase__open_date__year=today.year,
                                    openphrase__open_date__month=today.month,

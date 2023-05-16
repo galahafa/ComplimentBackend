@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block extra_css %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apps/css/auth/forgot_email.css' %}">
+    <meta charset="utf-8">
+    <title>Home page</title>
+{% endblock %}
+
+{% block content %}
+    <img src="{% static 'apps/files/less_icon.svg' %}" alt="return_svg" onclick="javascript:history.go(-1);"
+         class="return_icon"/>
+    <div class="center_form">
+        <div class="header">
+            <h1>Forgot password?</h1>
+            <p>Enter the email address associated with your account, and we will send you the password</p>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="login-form">
+                <input type="email" name="email" id="id_email" required="true" autocomplete="off" placeholder="Email"
+                       class="email base-input">
+            </div>
+            {{ form.errors }}
+            <form action="{{ redirect_url }}" method="get">
+                <button type="submit" class="signup button-form">Send!</button>
+            </form>
+        </form>
+    </div>
+{% endblock %}
